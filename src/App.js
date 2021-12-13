@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+const App = () => {
+
+    const [checked, setChecked] = useState(
+    localStorage.getItem("theme") === "dark" ? true : false
+);
+
+
+useEffect(() => {
+    document
+    .getElementsByTagName("HTML")[0]
+    .setAttribute("data-theme", localStorage.getItem("theme"));
+}, [!checked]);
+
+
+const toggleThemeChange = () => {
+    if (checked === false) {
+    localStorage.setItem("theme", "dark");
+    setChecked(true);
+    } else {
+    localStorage.setItem("theme", "light");
+    setChecked(false);
+    }
+};
+
+return (
+    <div>
+    <header>
+    <div className="form-check form-switch">
+    <input className="mt-3 form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+    defaultChecked={checked}
+    onChange={() => toggleThemeChange()}
+/>
+</div>
+
+    </header>
     </div>
-  );
-}
+);
+};
 
 export default App;
