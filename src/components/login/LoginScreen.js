@@ -6,6 +6,8 @@ import { useForm } from '../../hooks/useForm/useForm'
 
 export const LoginScreen = () => {
 
+    
+
     const dispatch = useDispatch()
     
     const [formValues, handleInputChange ] = useForm({
@@ -29,7 +31,7 @@ export const LoginScreen = () => {
 return (
 <section className="login-block">
     <div className="container-fluid">
-        <div className="row">
+        <div className="row " >
             <div className="col-sm-12">
                 <form className="md-float-material form-material" action="#" method="POST" onSubmit={handleLogin}>
                     <div className="auth-box card">
@@ -51,7 +53,7 @@ return (
                             value={password}
                             name="password"
                             onChange={handleInputChange}
-                            type="password" class="form-control" name="password" placeholder="Password"  id="password"/> 
+                            type="password" className="form-control" name="password" placeholder="Password"  id="password"/> 
                             </div>
 
 

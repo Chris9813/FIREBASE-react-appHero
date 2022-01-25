@@ -5,7 +5,7 @@ html {
 
 html[data-theme="dark"] {
   --primary-color: #1c1c1c;
-  --sec-color: #eff4f5ab;
+  --sec-color: #eff4f5f5;
 }
 
 body {
@@ -48,8 +48,20 @@ span {
   background-color: rgb(165, 165, 165);
 }
 
+.card-body {
+  flex: 1 1 auto;
+  padding: 1rem 1rem;
+  background-color: #eee9f9;
+}
+
 .card .card-block {
   padding: 1.25rem;
+  background-color: white;
+}
+
+.card-title {
+  margin-bottom: 0.5rem;
+  color: black;
 }
 
 .f-80 {
@@ -58,6 +70,10 @@ span {
 
 .form-group {
   margin-bottom: 1.25em;
+}
+.heading {
+  font-size: 21px;
+  color: black;
 }
 
 .form-material .form-control {
@@ -148,4 +164,9 @@ span {
 
 .p-login {
   color: #1c1c1c !important;
+}
+
+.text-muted {
+  --bs-text-opacity: 1;
+  color: #212426 !important;
 }

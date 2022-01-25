@@ -19,10 +19,10 @@ export const Navbar = () => {
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
             
             <Link 
-                className="navbar-brand" 
+                className="navbar-brand mx-3" 
                 to="/"
             >
-                Asociaciones
+                StarWars
             </Link>
 
             <div className="navbar-collapse">
@@ -32,18 +32,9 @@ export const Navbar = () => {
                         
                         className="nav-item nav-link" 
                         exact
-                        to="/marvel"
+                        to="/personajes"
                     >
-                        Marvel
-                    </NavLink>
-
-                    <NavLink 
-                        
-                        className="nav-item nav-link" 
-                        exact
-                        to="/dc"
-                    >
-                        DC
+                        Personajes
                     </NavLink>
 
                     <NavLink 
@@ -52,7 +43,7 @@ export const Navbar = () => {
                         exact
                         to="/search"
                     >
-                        Search
+                        Buscar
                     </NavLink>
             </div>
             </div>

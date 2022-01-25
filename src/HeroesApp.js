@@ -13,7 +13,7 @@ export const HeroesApp = () => {
             logged: false
         }
     }
-    const [user, dispatch] = useReducer(authReducer, {}, init);
+    const [user] = useReducer(authReducer, {}, init);
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify(user))
     }, [user])

@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import queryString from "query-string";
 import { useLocation } from 'react-router';
 import { useForm } from '../../hooks/useForm/useForm';
 import { HeroCard } from '../heroes/HeroCard';
-import { getHeroesByName } from '../selectors/getHeroesByName';
+import { FetchData } from '../../helpers/FetchData';
+
 
 export const SearchScreen = ({history}) => {
 
@@ -14,11 +15,13 @@ export const SearchScreen = ({history}) => {
         name: q,
     })
     const {name} = values
-    const memo = useMemo(() => getHeroesByName(q), [q])
+    const filt =  FetchData().filter(person => person.name.toLocaleLowerCase().includes(name))
+    
     const handleSearch = (e) => {
         e.preventDefault()
         history.push(`?q=${name}`);
     }
+    
     return (
         <div>
             <h1>Search Screen</h1>
@@ -49,16 +52,16 @@ export const SearchScreen = ({history}) => {
                                 <div id = "infoIni" className = "alert alert-info">
                                 search a hero
                                 </div>}
-                    {(q !== "" && memo.length === 0)
+                    {(q !== "" && filt.length === 0)
                             &&
                             <div className = "alert alert-warning">
-                            There is no a hero {q}, is a bich, search anoter thing
+                            There is no a hero {q}, search anoter thing
                             </div>}
                     {
-                        memo.map(hero => {
+                        filt.map((person, i) => {
                             return <HeroCard 
-                            key = {hero.id}
-                            {...hero}
+                            key = {i}
+                            {...person}
                             />
                         })
                     }

@@ -1,13 +1,13 @@
 import React from 'react'
 import { HeroList } from '../heroes/HeroList'
 
-export const DcScreen = () => {
+export const TodosPersn = () => {
     return (
         <div>
-        <h1>DC Screen</h1>
+        <h1>TODOS LOS PERSONAJES</h1>
         <hr/>
         <div className ="container">
-            <HeroList publisher = "DC Comics"/>
+            <HeroList />
         </div>
         </div>
     )
