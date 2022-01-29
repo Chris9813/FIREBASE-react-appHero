@@ -4,30 +4,39 @@ import { Link } from 'react-router-dom'
 
 
 export const HeroCard = ({
-    name,
-    eyeColor,
-    height,
-    homeworld,
-    gender
+    data
 }) => {
-    return (
-
-        <div className="card" >
+    return <>
+    {
+        data.map((item, i) => {
+            return <div>
+                <div key={i} className="card align-content-center my-3" >
             <div className="card-body">
-                <h5 className="card-title">{name}</h5>
+                <h5 key={item.name} className="card-title">{item.name}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">Caracteristicas</h6>
                 <ul className="list-group">
-                    <li className="list-group-item">Color de ojos: {eyeColor}</li>
-                    <li className="list-group-item">Planeta hogar: {homeworld}</li>
-                    <li className="list-group-item">Genero: {gender}</li>
-                    <li className="list-group-item">Altura: {height} cm</li>
+                <li key={item.color} className="list-group-item">Color de ojos: {item.eyeColor}</li>
+                <li key={item.gender} className="list-group-item">Genero: {item.gender}</li>
+                <li key={item.height} className="list-group-item">Altura: {item.height} cm</li>
                 </ul>
-                <Link className = "link" to={`./personaje/${name}`}>
+                <Link to={`./personaje/${item.name}`}>
                 Mas...
             </Link>
             </div>
 
     </div>
+            </div>
 
-    )
+})
+    }
+    </>
+}
+
+{
+    /*
+
+    
+        
+
+    */
 }

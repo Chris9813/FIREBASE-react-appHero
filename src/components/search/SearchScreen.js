@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import queryString from "query-string";
 import { useLocation } from 'react-router';
 import { useForm } from '../../hooks/useForm/useForm';
 import { HeroCard } from '../heroes/HeroCard';
-import { FetchData } from '../../helpers/FetchData';
+import { LAUNCHES_QUERY } from '../../helpers/launches_query';
+
+
 
 
 export const SearchScreen = ({history}) => {
@@ -15,7 +17,29 @@ export const SearchScreen = ({history}) => {
         name: q,
     })
     const {name} = values
-    const filt =  FetchData().filter(person => person.name.toLocaleLowerCase().includes(name))
+
+    const [data, setData] = useState([]);
+
+
+    const getApi = async() => {
+        const url = `https://swapi-graphql.netlify.app/.netlify/functions/index`
+        const resp = await fetch(url, {
+            method: 'post',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query: LAUNCHES_QUERY }),
+        });
+        const {data} = await resp.json();
+        setData(data.allPeople.people)
+    }
+
+    useEffect(() => {
+        getApi()
+    }, []);
+
+    const filt =  data.filter(person => person.name.toLocaleLowerCase().includes(name))
     
     const handleSearch = (e) => {
         e.preventDefault()
@@ -23,7 +47,7 @@ export const SearchScreen = ({history}) => {
     }
     
     return (
-        <div>
+        <div className='container'>
             <h1>Search Screen</h1>
             <hr/>
             <div className="row">
@@ -57,14 +81,10 @@ export const SearchScreen = ({history}) => {
                             <div className = "alert alert-warning">
                             There is no a hero {q}, search anoter thing
                             </div>}
-                    {
-                        filt.map((person, i) => {
-                            return <HeroCard 
-                            key = {i}
-                            {...person}
-                            />
-                        })
-                    }
+                            <div>
+                                <HeroCard data={filt}/>
+                            </div>
+                        
                 </div>
             </div>
         </div>

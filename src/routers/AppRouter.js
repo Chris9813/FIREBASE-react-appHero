@@ -54,7 +54,6 @@ if(checking) {
         component = {DeshboardRoutes} 
         isAuthenticated = {isLoggedIn}
         />
-
         </Switch>
         </div>
         

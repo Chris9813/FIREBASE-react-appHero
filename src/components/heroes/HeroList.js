@@ -1,19 +1,40 @@
-import React, { useState } from 'react'
-import { FetchData } from '../../helpers/FetchData';
+import React, { useState, useEffect } from 'react'
+import { LAUNCHES_QUERY } from '../../helpers/launches_query';
 import { HeroCard } from './HeroCard';
 
 
 export const HeroList = () => {
     
-    const itemsperPage = 5
-    const dat = FetchData()
+    const itemsperPage = 8
     
     const [actIndex, setActIndex] = useState(0);
     const [finIndex, setFinIndex] = useState(itemsperPage);
 
+    const [data, setData] = useState([]);
+
+
+    const getApi = async() => {
+        const url = `https://swapi-graphql.netlify.app/.netlify/functions/index`
+        const resp = await fetch(url, {
+            method: 'post',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query: LAUNCHES_QUERY }),
+        });
+        const {data} = await resp.json();
+        setData(data.allPeople.people)
+    }
+
+    useEffect(() => {
+        getApi()
+    }, []);
+
+    
     
     const handleNext = () => {
-        if(finIndex >= dat.length)return
+        if(finIndex >= data.length)return
         setActIndex(actIndex + itemsperPage)
         setFinIndex(finIndex + itemsperPage)
     }
@@ -26,7 +47,7 @@ export const HeroList = () => {
 
     }
 
-    
+    console.log(data.slice(actIndex, finIndex));
 
     return (
         <div className = "container">
@@ -34,19 +55,8 @@ export const HeroList = () => {
             <button className="btn btn-info my-3 mx-5 col-4" onClick={handleNext}>Siguiente</button>
             
             <div 
-            className = "row row-cols-3 animate__animated animate__backInDown">
-        
-
-        {
-            dat.filter((hero, i) => {return  i >= actIndex && i <= finIndex }).map((hero,i) => (
-            <div key={i} className = "col">
-                <HeroCard 
-                key = {hero.name}
-                {...hero}
-                />
-            </div>
-            ))
-        }
+            className = "row row-cols-4 d-flex justify-content-center cards animate__animated animate__backInDown">
+            <HeroCard data={data.slice(actIndex, finIndex)} />
         </div>
         </div>
     )
